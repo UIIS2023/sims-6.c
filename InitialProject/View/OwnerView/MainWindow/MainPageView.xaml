@@ -1,0 +1,76 @@
+﻿<Page x:Class="InitialProject.View.OwnerView.MainWindow.MainPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InitialProject.View.OwnerView.MainWindow"
+      xmlns:ns="clr-namespace:InitialProject.Utilities"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="345"
+      Title="MainPageView">
+
+    <Page.Background>
+        <SolidColorBrush Color="{DynamicResource LighterBackground}" />
+    </Page.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5.3*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Source="/Resources/Images/logo.png" Margin="2,48,-2,24" Grid.RowSpan="2" />
+        <TextBlock Grid.Row="1" Text="{Binding WelcomeMessage, StringFormat='Welcome {0}!'}" HorizontalAlignment="Center"  Margin="0,302,0,14" FontWeight="Medium" Foreground="{DynamicResource TextColor}" FontSize="24" FontFamily="Sen Bold"></TextBlock>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Command="{Binding MyAccommoadionsOpenCommand}" Grid.Row="0"  Style="{StaticResource MainPageButtonStyle}" FontSize="16" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/myAccommodation.png" Width="20"/>
+                    <TextBlock Padding="5" Text="{ns:Loc MyAccommodations}"></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="1" Command="{Binding RatingsOpenCommand}" Grid.Row="0"  Style="{StaticResource MainPageButtonStyle}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/ratings.png" Width="20"/>
+                    <TextBlock Padding="5" Text="{ns:Loc Ratings}"></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="0" Grid.Row="1" Command="{Binding RenovationsOpenCommand}"  Style="{StaticResource MainPageButtonStyle}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/renovations.png" Width="20"/>
+                    <TextBlock Padding="5" Text="{ns:Loc Renovations}"></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="1" Command="{Binding ReservationsOpenCommand}" Grid.Row="1"  Style="{StaticResource MainPageButtonStyle}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/reservations.png" Width="20"/>
+                    <TextBlock Padding="5" Text="{ns:Loc Reservations}"></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="0" Grid.Row="2" Command="{Binding ForumsOpenCommand}"  Style="{StaticResource MainPageButtonStyle}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/forums.png" Width="20"/>
+                    <TextBlock Padding="5" Text="{ns:Loc Forums}"></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="1" Grid.Row="2" Command="{Binding SettingsOpenCommand}"  Style="{StaticResource MainPageButtonStyle}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/settings.png" Width="20"/>
+                    <TextBlock Padding="5" Text="{ns:Loc Settings}"></TextBlock>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+
+        <Button Content="{ns:Loc Log_out}" Command="{Binding LogOutCommand}" Style="{StaticResource MainPageButtonStyle}" Grid.Row="3" Margin="50, 30, 50, 30"></Button>
+    </Grid>
+</Page>

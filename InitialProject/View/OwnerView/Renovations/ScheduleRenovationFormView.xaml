@@ -1,0 +1,184 @@
+﻿<Page x:Class="InitialProject.View.OwnerView.Renovations.ScheduleRenovationFormView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:val="clr-namespace:InitialProject.Validation"
+        xmlns:local="clr-namespace:InitialProject.View.OwnerView.Renovations"
+        xmlns:ns="clr-namespace:InitialProject.Utilities"
+        mc:Ignorable="d"
+        Title="ScheduleRenovationFormView" Height="648" Width="356">
+    <Page.Background>
+        <SolidColorBrush Color="{DynamicResource DarkerBackground}" />
+    </Page.Background>
+    <Page.Resources>
+
+        <!--Confirm button style-->
+
+
+
+
+        <!--Validation error template-->
+        <ControlTemplate x:Key="ValidationErrorTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+            </Grid>
+        </ControlTemplate>
+        <!--End of Validation error template-->
+
+
+
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Command="{Binding GoBackCommand}" Content="{ns:Loc Go_back}" Background="Transparent" BorderThickness="0" Foreground="{DynamicResource TextColor}" FontSize="16" HorizontalAlignment="Left" FontWeight="DemiBold">
+
+        </Button>
+
+
+
+        <Border Grid.Row="1" BorderThickness="0, 0, 0, 3" BorderBrush="{DynamicResource TextColor}" Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--Accommodation name-->
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" FontWeight="DemiBold" Text="{ns:Loc Renovation}" Foreground="{DynamicResource TextColor}"></TextBlock>
+                <!--Accommodation location-->
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,5" >
+                    <TextBlock Text="{Binding Accommodation.Name}" 
+                           FontWeight="Bold"
+                           FontSize="20"
+                           Foreground="{DynamicResource TextColor}"
+                           Margin="0,0,5,0"/>
+                    <TextBlock Text="" />
+                </StackPanel>
+
+                <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="DemiBold" Text="{ns:Loc Select_date_range_for_renovations}" Foreground="{DynamicResource TextColor}"></TextBlock>
+
+                <!--From and to dates-->
+
+
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{ns:Loc From}" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,0"
+                               Foreground="{DynamicResource TextColor}"/>
+                    <DatePicker Grid.Row="0" Grid.Column="2" SelectedDate="{Binding FromDate, UpdateSourceTrigger=PropertyChanged}">
+                    </DatePicker>
+
+
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{ns:Loc To}" 
+                               FontWeight="Bold"
+                               Margin="10,0,20,0"
+                               Foreground="{DynamicResource TextColor}"/>
+                    <DatePicker Grid.Row="1" Grid.Column="2" SelectedDate="{Binding ToDate}"></DatePicker>
+
+                </Grid>
+                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,5">
+                    <TextBlock Text="{ns:Loc Renovation_length}" 
+                           FontWeight="Bold"
+                           Margin="10,15,0,0"
+                           Foreground="{DynamicResource TextColor}"/>
+                    <TextBox Width="30" Height="20" Margin="10, 15, 0, 0" Text="{Binding RenovationLength}"></TextBox>
+
+                </StackPanel>
+            </Grid>
+        </Border>
+
+
+
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"  Margin="10,20">
+                <TextBlock Text="{ns:Loc Select_available_date}" 
+                           FontWeight="Bold"
+                           Margin="0,0,10,0"
+                           Foreground="{DynamicResource TextColor}"/>
+                <ComboBox Width="100" 
+                          x:Name="selectedAvailableDate"
+                          ItemsSource="{Binding AvailableDates, UpdateSourceTrigger=PropertyChanged}"
+                          ItemStringFormat="{}{0:dd/MM/yyyy}"
+                          IsEditable="False">
+                    <ComboBox.SelectedItem>
+                        <Binding Path="SelectedStartDate">
+                            <Binding.ValidationRules>
+                                <val:ComboboxValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left"  Margin="10,20">
+                <TextBlock Text="{ns:Loc Renovation_description}" 
+                           FontWeight="Bold"
+                           Margin="0,0,10,0"
+                           Foreground="{DynamicResource TextColor}"/>
+                <TextBox Height="108" Width="335" 
+                         x:Name="renovationDescription"
+                         TextWrapping="Wrap">
+                    <TextBox.Text>
+                        <Binding Path="RenovationDescription" UpdateSourceTrigger="PropertyChanged" TargetNullValue=''>
+                            <Binding.ValidationRules>
+                                <val:EmptyStringValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <StaticResource ResourceKey="ValidationErrorTemplate" />
+                    </Validation.ErrorTemplate>
+                </TextBox>
+
+            </StackPanel>
+
+
+            <Button Grid.Row="2" 
+                    Margin="20 100 20 100" Content="{ns:Loc Submit}" 
+                    Style="{StaticResource RenovationSubmitButtonStyle}"
+                    Command="{Binding ScheduleRenovationCommand}">
+            </Button>
+
+        </Grid>
+
+    </Grid>
+</Page>
